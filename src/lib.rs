@@ -3,8 +3,8 @@
 #![doc = include_str!("../README.md")]
 
 use core::future::Future;
-use leptos::*;
-
+use leptos::prelude::*;
+use leptos::spawn::spawn_local;
 // re-export the Pow for ease of use
 pub use spow;
 
@@ -55,7 +55,7 @@ pub fn Captcha(
                         <div class="text">
                             {text}
                         </div>
-                    },
+                    }.into_any(),
                     Some(true) => view! {
                         <div class="icon-front">
                             <ShieldExclamation />
@@ -64,7 +64,7 @@ pub fn Captcha(
                             {text_pending}
                         </div>
                         <div class="spinner"><div></div><div></div><div></div><div></div></div>
-                    },
+                    }.into_any(),
                     Some(false) => view! {
                         <div class="icon-front">
                             <ShieldCheck />
@@ -75,7 +75,7 @@ pub fn Captcha(
                         <div class="icon-back">
                             <IconCheck />
                         </div>
-                    },
+                    }.into_any(),
                 }}
             </label>
         </div>
