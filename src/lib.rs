@@ -3,8 +3,7 @@
 #![doc = include_str!("../README.md")]
 
 use core::future::Future;
-use leptos::prelude::*;
-use leptos::spawn::spawn_local;
+use leptos::{logging::log, prelude::*, task::spawn_local};
 // re-export the Pow for ease of use
 pub use spow;
 
@@ -18,6 +17,7 @@ where
     spawn_local(async move {
         match get_pow().await {
             Ok(challenge) => {
+                log!("PoW challenge: {}", challenge);
                 #[cfg(target_arch = "wasm32")]
                 let work = spow::wasm::pow_work(&challenge).unwrap();
                 #[cfg(not(target_arch = "wasm32"))]
